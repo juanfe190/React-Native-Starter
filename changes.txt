@@ -1,0 +1,4 @@
+***0.0.6
+-Fix in BaseStore when removing listener from EventEmitter
+***0.0.7
+-Implemented CacheService and imageCache

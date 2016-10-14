@@ -1,0 +1,16 @@
+{
+  "name": "react-native-starter",
+  "version": "0.0.7",
+  "private": false,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "events": "^1.1.1",
+    "flux": "^2.1.1",
+    "react-native-drawer": "^2.3.0",
+    "react-native-vector-icons": "^2.1.0",
+    "react-native-fs": "^1.5.1",
+    "blueimp-md5": "^2.4.0"
+  }
+}
