@@ -9,13 +9,15 @@ class Cache
 	static async image(url, options = {})
 	{
 		const filename = md5(url);
-		imageCache.checkCache(filename).then((inCache)=>{
-			if(!inCache || options.forceUpdate) return imageCache.createCache(url, options);
-			return imageCache.recoverCache(url, options);
 
-		}).then((uri) => {
-			return uri;
-		});
+		try{
+			let inCache = await imageCache.checkCache(filename);
+
+			if(!inCache || options.forceUpdate) return await imageCache.createCache(url, options);
+			return await imageCache.recoverCache(url, options);
+		}catch(error){
+			console.log(error);
+		}
 
 	}
 }
