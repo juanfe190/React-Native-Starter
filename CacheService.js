@@ -6,16 +6,15 @@ import imageCache from './src/cache/imageCache';
 export default
 class Cache 
 {
-	static image(url, success, options = {})
+	static async image(url, options = {})
 	{
 		const filename = md5(url);
-		imageCache.setOptions(options);
 		imageCache.checkCache(filename).then((inCache)=>{
 			if(!inCache || options.forceUpdate) return imageCache.createCache(url, options);
 			return imageCache.recoverCache(url, options);
 
 		}).then((uri) => {
-			success(uri);
+			return uri;
 		});
 
 	}

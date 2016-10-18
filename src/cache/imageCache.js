@@ -4,7 +4,6 @@ import {AsyncStorage} from 'react-native';
 
 
 const dir = RNFS.DocumentDirectoryPath;
-var options;
 
 async function recoverCache(url){
 	const filename = md5(url);
@@ -70,7 +69,7 @@ async function checkCache(name){
 *
 * @author Felix Vasquez, Baum Digital
 */
-async function createCache(url){
+async function createCache(url, options){
 	const extension = extractExtension(url);
 	const filename = md5(url);
 	const timestamp = new Date().getTime();
@@ -81,7 +80,7 @@ async function createCache(url){
 	  							  				 						timestamp: timestamp, 
 	  							  				  						expire: options.expire || 86400000}));
 
-	  return await downloadAndWrite(url, destination);
+	  return await downloadAndWrite(url, destination, options);
 
 	} catch (error) {
 	  console.log("Error saving to storage", error);
@@ -89,7 +88,7 @@ async function createCache(url){
 }
 
 
-function uploadProgress(data){
+function uploadProgress(options, data){
 	var percentage = Math.floor((data.bytesWritten/data.contentLength) * 100);
   	if(options.onProgress) options.onProgress(percentage);
 }
@@ -100,10 +99,9 @@ function uploadProgress(data){
 *
 * @author Felix Vasquez, Baum Digital
 */
-async function downloadAndWrite(url, destination){
+async function downloadAndWrite(url, destination, options){
 	try{
-
-		await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: uploadProgress});
+		await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: uploadProgress.bind(this, options)});
 		return buildUri(destination);
 
 	}catch(err){
