@@ -5,6 +5,6 @@ class ViewExceptions extends Error
 	{
 		super(msg);
 		this.name = "ViewExceptions";
-		this.message = "Error: " + msg;
+		this.message = msg;
 	}
 }

@@ -13,6 +13,7 @@ import BaseStore from './BaseStore.js';
 import AppDispatcher from './FluxDispatcher.js';
 import Cache from './CacheService.js';
 import ErrorInterceptor from './ErrorInterceptor.js';
+import http from './HttpService.js';
 
 module.exports = {
 	Button,
@@ -22,5 +23,6 @@ module.exports = {
 	BaseStore,
 	AppDispatcher,
 	Cache,
-	ErrorInterceptor
+	ErrorInterceptor,
+	http
 }

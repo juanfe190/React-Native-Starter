@@ -1,6 +1,7 @@
 import RNFS from 'react-native-fs';
 import md5 from 'blueimp-md5';
 import {AsyncStorage} from 'react-native';
+import util from './util';
 
 
 const dir = RNFS.DocumentDirectoryPath;
@@ -13,7 +14,7 @@ async function recoverCache(url){
 	  var value = await AsyncStorage.getItem('@cache:' + filename);
 	  value = JSON.parse(value);
 	  
-	  if(expired(value.timestamp, value.expire)) return createCache(url);
+	  if(util.expired(value.timestamp, value.expire)) return createCache(url);
 	  return buildUri(value.path);
 
 	} catch (error) {
@@ -26,16 +27,6 @@ function setOptions(_options){
 }
 
 
-/**
-* Valida si ya expiro el cache
-*
-* @author Felix Vasquez, Baum Digital
-*/
-function expired(time, expire){
-	var current = new Date().getTime();
-	return (current - time) > expire;
-}
-
 
 /**
 * Obtiene la extension del archivo
@@ -47,21 +38,7 @@ function extractExtension(url){
 }
 
 
-/**
-* Revisa si el archivo ya se encuentra almacenado en cache
-*
-* @author Felix Vasquez, Baum Digital
-*/
-async function checkCache(name){
-	try {
 
-	  const value = await AsyncStorage.getItem('@cache:' + name);
-	  return value !== null;
-
-	} catch (error) {
-	  console.log(error);
-	}
-}
 
 
 /**
@@ -116,7 +93,6 @@ function buildUri(path){
 
 
 export default {
-	checkCache,
 	recoverCache,
 	createCache,
 	setOptions
