@@ -1,13 +1,22 @@
 export 
 class HttpException extends Error
 {
-	constructor(msg, status = 500, payload = {})
+	/**
+	* 
+	* @params String: mensaje de error
+	* @param Int: Http Status code
+	* @param Object: Parametros de request
+	* @param Object: Parametros del response
+	* @author Felix Vasquez, Baum Digital
+	*/
+	constructor(msg, status = 500, payload = {}, response = {})
 	{
 		super(msg);
 		this.name = "HttpException";
 		this.message = msg;
 		this.status = status;
 		this.payload = payload;
+		this.response = response;
 	}
 }
 
@@ -15,9 +24,9 @@ class HttpException extends Error
 export 
 class NetworkException extends HttpException
 {
-	constructor(msg)
+	constructor(msg, payload)
 	{
-		super(msg, -1);
+		super(msg, -1, payload);
 		this.name = "HttpNetworkException";
 	}
 }

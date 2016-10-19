@@ -16,14 +16,14 @@ class http
 			var response = await httpUtil.request(url, options.method, params, options.headers);
 
 		}catch(err){
-			console.log("Error in HttpService", err.message);
+			throw new NetworkException(err.message, params);
 		}
 		
 		try{
 			var payload = await response.json();
 		}catch(err){}
 
-		if(response.status != 200) throw new HttpException( ERROR_MESSAGES.HTTP_ERROR, response.status, payload );
+		if(response.status != 200) throw new HttpException( ERROR_MESSAGES.HTTP_ERROR, response.status, params, payload );
 		return payload;
 	}
 }

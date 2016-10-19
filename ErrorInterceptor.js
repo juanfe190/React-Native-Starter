@@ -4,7 +4,15 @@
 var reactErrorHandler = global.ErrorUtils.getGlobalHandler();
 
 
-global.ErrorUtils.setGlobalHandler((error)=>{
-  console.log("Error capturado por react native starter");
-  reactErrorHandler(error);
-});
+export default
+class ErrorInterceptor
+{
+	static onGlobalError(callback){
+		global.ErrorUtils.setGlobalHandler((error, isFatal)=>{
+		  if(typeof callback !== 'function') throw new TypeError(`Parameter given to onGlobalError must be a valid function. '${typeof callback}' given.`);
+		  
+		  callback(error);
+		  reactErrorHandler(error, isFatal);
+		});
+	}
+}
