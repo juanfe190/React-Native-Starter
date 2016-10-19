@@ -8,7 +8,6 @@ class http
 	static async request(url, params, options)
 	{
 		let isConnected = await httpUtil.validateInternetConnection();
-		isConnected = true; //DEBUG
 		if(!isConnected) throw new NetworkException( ERROR_MESSAGES.NO_CONNECTION );
 
 		try{
