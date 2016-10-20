@@ -30,3 +30,4 @@ class NetworkException extends HttpException
 		this.name = "HttpNetworkException";
 	}
 }
+

@@ -14,6 +14,7 @@ import AppDispatcher from './FluxDispatcher.js';
 import Cache from './CacheService.js';
 import ErrorInterceptor from './ErrorInterceptor.js';
 import http from './HttpService.js';
+import HttpInterceptor from './src/http/httpInterceptor.js';
 
 module.exports = {
 	Button,
@@ -24,5 +25,6 @@ module.exports = {
 	AppDispatcher,
 	Cache,
 	ErrorInterceptor,
-	http
+	http,
+	HttpInterceptor
 }

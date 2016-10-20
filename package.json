@@ -17,7 +17,8 @@
   "readmeFilename": "README.md",
   "description": "---------- # React Native Starter Kit",
   "_id": "react-native-starter@0.0.7",
-  "_shasum": "17284f887cb57fcf245a476755f09b4d906387e9",
+  "_shasum": "d3a8f78398c5576760404304dfb21c19390845bc",
   "_from": "../React-Native-Starter/react-native-starter",
-  "_resolved": "file:../React-Native-Starter/react-native-starter"
+  "_resolved": "file:../React-Native-Starter/react-native-starter",
+  "gitHead": "1b89cadcc3b0befee550e36aecc86c2216a38cd8"
 }
