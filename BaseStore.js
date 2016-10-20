@@ -26,7 +26,7 @@ class BaseStore extends EventEmitter
 	}
 
 	getState(){
-		return this.state;
+		return Object.assign({}, this.state);
 	}
 
 	setState(props){
