@@ -4,6 +4,7 @@
 import Button from './components/button.js';
 import SideMenu from './components/sidemenu.js';
 import AndroidToolbar from './components/androidtoolbar.js';
+import CachedImage from './components/cachedImage.js';
 
 /*****************************************
 ********* FUNCTIONAL COMPONENTS **********
@@ -20,6 +21,7 @@ module.exports = {
 	Button,
 	SideMenu,
 	AndroidToolbar,
+	CachedImage,
 	Router,
 	BaseStore,
 	AppDispatcher,

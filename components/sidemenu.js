@@ -19,7 +19,7 @@ class SideMenu extends Component
 	mergeStyles(){
 		var style = {
 		  drawer: { shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 3, backgroundColor: '#F5FCFF', paddingTop: 20},
-		  main: {paddingLeft: 3, backgroundColor: 'black'},
+		  main: {paddingLeft: 0, backgroundColor: 'black'},
 		}
 
 		var parentStyle = this.props.style || {};

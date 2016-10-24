@@ -10,7 +10,6 @@ class http
 	static async request(url, payload, options)
 	{
 		let isConnected = await httpUtil.validateInternetConnection();
-		isConnected = true;
 		if(!isConnected) throw new NetworkException( ERROR_MESSAGES.NO_CONNECTION );
 
 		try{
