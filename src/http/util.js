@@ -69,11 +69,11 @@
 
     /*treat by promise
     */
-    async function request(url, method, params, headers)
+    async function request(url, method, params, headers = {})
     {
         let method2=method==undefined ? "" : method.toUpperCase();
         let params2= params == undefined ? {} : params;
-        let headers2= headers == undefined ? default_headers : headers;
+        let headers2= Object.assign({}, default_headers, headers);
         let config= configureRequest(url, method2, params2, headers2);
         let response = await fetch(config.url,config.config);
         
@@ -86,11 +86,12 @@
     async function validateInternetConnection() 
     {
         let response= await NetInfo.isConnected.fetch();
+        console.log("Acceso a internet: ", response);
         return response;
     }
 
 
-  	export default
+    export default
      {
      request,
      validateInternetConnection
