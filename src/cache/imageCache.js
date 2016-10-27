@@ -14,7 +14,7 @@ async function recoverCache(url){
 	  var value = await AsyncStorage.getItem('@cache:' + filename);
 	  value = JSON.parse(value);
 	  
-	  if(util.expired(value.timestamp, value.expire)) return createCache(url);
+	  if(util.expired(value.timestamp, value.expire)) return createCache(url, {expire: value.expire});
 	  return buildUri(value.path);
 
 	} catch (error) {
