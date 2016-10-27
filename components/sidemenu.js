@@ -47,14 +47,17 @@ class SideMenu extends Component
 			<Drawer
 			 	type="overlay"
 			 	captureGestures={false}
-			 	open = {this.props.opened}
-			 	onClose={this.props.onClose}
+				
 				content={this.getMenuContent()}
 				tapToClose={true}
 				openDrawerOffset={0.2} // 20% gap on the right side of drawer
 				panCloseMask={0.2}
+				//tweenDuration={100}
 				closedDrawerOffset={-3}
 		        ref={(ref) => this._drawer = ref}
+		        {...this.props}
+			 	open = {this.props.opened}
+			 	onClose={this.props.onClose}
 		        styles={this.mergeStyles()} 
 		        tweenHandler={(ratio) => ({
 					main: { opacity:(2-ratio)/2 }
