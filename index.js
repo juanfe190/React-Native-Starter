@@ -11,6 +11,7 @@ import CachedImage from './components/cachedImage.js';
 ******************************************/
 import Router from './Router.js';
 import BaseStore from './BaseStore.js';
+import BaseAction from './components/BaseAction.js';
 import AppDispatcher from './FluxDispatcher.js';
 import Cache from './CacheService.js';
 import ErrorInterceptor from './ErrorInterceptor.js';
@@ -21,9 +22,11 @@ module.exports = {
 	Button,
 	SideMenu,
 	AndroidToolbar,
+
 	CachedImage,
 	Router,
 	BaseStore,
+	BaseAction,
 	AppDispatcher,
 	Cache,
 	ErrorInterceptor,
