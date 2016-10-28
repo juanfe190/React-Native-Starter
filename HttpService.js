@@ -9,9 +9,6 @@ class http
 {
 	static async request(url, payload, options)
 	{
-		let isConnected = await httpUtil.validateInternetConnection();
-		if(!isConnected) throw new NetworkException( ERROR_MESSAGES.NO_CONNECTION );
-
 		try{
 			let data = runRequestInterceptorsStack(url, payload, options);
 			var response = await httpUtil.request(data.url, options.method, payload, options.headers);
