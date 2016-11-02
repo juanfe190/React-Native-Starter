@@ -24,6 +24,14 @@ class Router
 		mapper = data;
 	}
 
+	static setActiveRoute(route){
+		activeRoute = route;
+	}
+
+	static getCurrentView(){
+		return activeRoute.name;
+	}
+
 
 	/**
 	* Monta view previamente registrada en el navigator sin desmontar
@@ -113,3 +121,4 @@ function viewNotInStack(name)
 
 var navigator;
 var mapper;
+var activeRoute;
