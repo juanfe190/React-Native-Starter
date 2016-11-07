@@ -17,6 +17,7 @@ import Cache from './CacheService.js';
 import ErrorInterceptor from './ErrorInterceptor.js';
 import http from './HttpService.js';
 import HttpInterceptor from './src/http/httpInterceptor.js';
+import FormValidator from './FormValidator.js';
 
 module.exports = {
 	Button,
@@ -31,5 +32,6 @@ module.exports = {
 	Cache,
 	ErrorInterceptor,
 	http,
-	HttpInterceptor
+	HttpInterceptor,
+	FormValidator
 }

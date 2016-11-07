@@ -14,6 +14,6 @@ class BaseAction{
 				AppDispatcher.dispatch(action);
 				stopInterval();
 			}
-		}, 200);	
+		}, 50);	
 	}
 }
