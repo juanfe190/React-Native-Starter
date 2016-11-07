@@ -34,6 +34,19 @@ class FormValidator
 
 		return startValidation(value, fieldname, options);
 	}
+
+	/**
+	 * Converts the array of errors to an object
+	 * @param  {Array} array
+	 * @return {Object}      
+	 */
+	errorsObj(array){
+		let objErrors={};
+		for(i in array){
+			objErrors[array[i].fieldname]=array[i].message;
+		}
+		return objErrors;
+    }
 }
 
 
