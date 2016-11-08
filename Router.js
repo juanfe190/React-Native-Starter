@@ -42,7 +42,7 @@ class Router
 		if(viewNotInStack(name)) return this.openView(name, params);
 
 		view = findView(name);
-		view['_params'] = params;
+		view['_params'] = Object.assign({}, params);
 		navigator.jumpTo(view);
 	}
 
@@ -54,7 +54,7 @@ class Router
 	static jumpAndReset(name, params={})
 	{
 		view = findView(name);
-		view['_params'] = params;
+		view['_params'] = Object.assign({}, params);
 		navigator.resetTo(view);
 	}
 
@@ -66,7 +66,7 @@ class Router
 	static openView(name, params={})
 	{
 		view = findView(name);
-		view['_params'] = params;
+		view['_params'] = Object.assign({}, params);
 		navigator.push(view);
 	}
 
@@ -86,6 +86,17 @@ class Router
 	static closeView()
 	{
 		navigator.pop();
+	}
+
+
+	/**
+	 * Replaces current view
+	 */
+	static replace(name, params={})
+	{
+		view = findView(name);
+		view['_params'] = Object.assign({}, params);
+		navigator.replace(view);
 	}
 }
 
