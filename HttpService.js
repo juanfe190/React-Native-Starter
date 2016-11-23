@@ -24,8 +24,10 @@ class http
 			var payload = await response.json();
 		}catch(err){}
 
+		let result = runResponseInterceptorsStack(payload, response, options);
 		if(String(response.status).charAt(0) != 2) throw new HttpException( ERROR_MESSAGES.HTTP_ERROR, response.status, payload, payload );
-		return runResponseInterceptorsStack(payload, response, options);;
+		
+		return result;
 	}
 
 
