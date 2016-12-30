@@ -53,12 +53,15 @@ async function createCache(url, options){
 	const destination = `${dir}/${filename}.${extension}`;
 	try {
 
-	  await AsyncStorage.setItem('@cache:' + filename,  JSON.stringify({path: destination, 
+	  let valid = await downloadAndWrite(url, destination, options);
+	  if(valid){
+	  	 await AsyncStorage.setItem('@cache:' + filename,  JSON.stringify({path: destination, 
 	  							  				 						timestamp: timestamp, 
 	  							  				  						expire: options.expire || 86400000}));
+	  }
 
-	  return await downloadAndWrite(url, destination, options);
-
+	  return valid;
+	  
 	} catch (error) {
 	  console.log("Error saving to storage", error);
 	}
@@ -78,11 +81,13 @@ function uploadProgress(options, data){
 */
 async function downloadAndWrite(url, destination, options){
 	try{
-		await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: uploadProgress.bind(this, options)});
+		let result = await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: uploadProgress.bind(this, options)});
+		if(result.statusCode < 200 || result.statusCode > 299) return false;
 		return buildUri(destination);
 
 	}catch(err){
 		console.log("Error downloading file", err);
+		return false;
 	}
 }
 
