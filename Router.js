@@ -39,6 +39,8 @@ class Router
 	*/
 	static jumpTo(name, params={})
 	{
+		willDisappearCallback();
+
 		if(viewNotInStack(name)) return this.openView(name, params);
 
 		view = findView(name);
@@ -53,6 +55,8 @@ class Router
 	*/
 	static jumpAndReset(name, params={})
 	{
+		willDisappearCallback();
+
 		view = findView(name);
 		view['_params'] = Object.assign({}, params);
 		navigator.resetTo(view);
@@ -65,6 +69,8 @@ class Router
 	*/
 	static openView(name, params={})
 	{
+		willDisappearCallback();
+
 		view = findView(name);
 		view['_params'] = Object.assign({}, params);
 		navigator.push(view);
@@ -76,6 +82,8 @@ class Router
 	*/
 	static jumpBack()
 	{
+		willDisappearCallback();
+
 		navigator.jumpBack();
 	}	
 
@@ -85,6 +93,8 @@ class Router
 	*/
 	static closeView()
 	{
+		willDisappearCallback();
+
 		navigator.pop();
 	}
 
@@ -94,9 +104,15 @@ class Router
 	 */
 	static replace(name, params={})
 	{
+		willDisappearCallback();
+		
 		view = findView(name);
 		view['_params'] = Object.assign({}, params);
 		navigator.replace(view);
+	}
+
+	static setWillDisappearCallback(callback){
+		willDisappearCallback = callback;
 	}
 }
 
@@ -112,6 +128,7 @@ function findView(name)
 	});
 	
 	if(typeof view == 'undefined') throw new ViewExceptions(`La vista especificada ('${name}') no se encuentra registrada en el mapper.`);
+	
 	return view;
 }
 
@@ -133,3 +150,4 @@ function viewNotInStack(name)
 var navigator;
 var mapper;
 var activeRoute;
+var willDisappearCallback = function(){};
