@@ -10,7 +10,7 @@
     "flux": "^2.1.1",
     "react-native-drawer": "^2.3.0",
     "react-native-vector-icons": "^2.1.0",
-    "react-native-fs": "react-native-fs@2.1.0-rc.1",
+    "react-native-fs": "2.1.0-rc.1",
     "blueimp-md5": "^2.4.0",
     "validator": "^6.1.0"
   },
