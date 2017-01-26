@@ -81,8 +81,11 @@ function uploadProgress(options, data){
 */
 async function downloadAndWrite(url, destination, options){
 	try{
-		let result = await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: uploadProgress.bind(this, options)});
-		if(result.statusCode < 200 || result.statusCode > 299) return false;
+		let exists = await RNFS.exists(destination);
+		if(!exists){
+			let result = await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: uploadProgress.bind(this, options)});
+			if(result.statusCode < 200 || result.statusCode > 299) return false;
+		}
 		return buildUri(destination);
 
 	}catch(err){
