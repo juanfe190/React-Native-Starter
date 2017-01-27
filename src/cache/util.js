@@ -32,8 +32,20 @@ function expired(time, expire){
 }
 
 
+/**
+ * Valida si la url actual ya se encuentra en proceso de cache
+ * @param  {String} url             
+ * @param  {Array} activeImageUrls Urls activas
+ * @return {Boolean}                 
+ */
+function urlIsActive(url, activeImageUrls){
+	return activeImageUrls.indexOf(url) > -1;
+}
+
+
 
 export default {
 	checkCache,
-	expired
+	expired,
+	urlIsActive
 }

@@ -4,7 +4,6 @@ import imageCache from './src/cache/imageCache';
 import requestCache from './src/cache/requestCache';
 import util from './src/cache/util';
 
-
 export default
 class Cache 
 {
@@ -15,12 +14,15 @@ class Cache
 	*/
 	static async image(url, options = {})
 	{
+		let returning = null;
 		const filename = md5(url);
+
 		let inCache = await util.checkCache(filename);
 
-		if(!inCache || options.forceUpdate) return await imageCache.createCache(url, options);
-		return await imageCache.recoverCache(url, options);
+		if(!inCache || options.forceUpdate) returning = await imageCache.createCache(url, options);
+		else returning = await imageCache.recoverCache(url, options);
 
+		return returning;
 	}
 
 

@@ -15,6 +15,7 @@ async function recoverCache(url){
 	  value = JSON.parse(value);
 	  
 	  if(util.expired(value.timestamp, value.expire)) return createCache(url, {expire: value.expire});
+	  if(! await RNFS.exists(value.path)) return createCache(url, {expire: value.expire});
 	  return buildUri(value.path);
 
 	} catch (error) {
@@ -68,7 +69,8 @@ async function createCache(url, options){
 }
 
 
-function uploadProgress(options, data){
+function downloadProgress(options, data){
+	console.log("Download progress", data);
 	var percentage = Math.floor((data.bytesWritten/data.contentLength) * 100);
   	if(options.onProgress) options.onProgress(percentage);
 }
@@ -82,10 +84,11 @@ function uploadProgress(options, data){
 async function downloadAndWrite(url, destination, options){
 	try{
 		let exists = await RNFS.exists(destination);
-		if(!exists){
-			let result = await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: uploadProgress.bind(this, options)});
-			if(result.statusCode < 200 || result.statusCode > 299) return false;
-		}
+		if(exists) await RNFS.unlink(destination);
+
+		let result = await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: downloadProgress.bind(this, options)}).promise;
+		console.log("Download result", result.statusCode);
+		if(result.statusCode < 200 || result.statusCode > 299) return false;
 		return buildUri(destination);
 
 	}catch(err){
