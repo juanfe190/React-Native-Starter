@@ -114,6 +114,15 @@ class Router
 	static setWillDisappearCallback(callback){
 		willDisappearCallback = callback;
 	}
+
+	/**
+	 *  Return active view stack
+	 */
+	static getStack()
+	{
+		console.log('getStack');
+		return navigator.getCurrentRoutes();
+	}
 }
 
 /**

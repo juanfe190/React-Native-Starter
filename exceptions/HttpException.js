@@ -24,9 +24,9 @@ class HttpException extends Error
 export 
 class NetworkException extends HttpException
 {
-	constructor(msg, payload)
+	constructor(msg, payload, response)
 	{
-		super(msg, -1, payload);
+		super(msg, -1, payload, response);
 		this.name = "HttpNetworkException";
 	}
 }

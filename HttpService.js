@@ -13,16 +13,18 @@ class http
 			
 		}catch(err){
 			if(err.name == 'InterceptorRejected') return err.payload;
-			runResponseInterceptorsStack({}, {status: -1}, options);
-			throw new NetworkException(err.message, payload);
+			
+			let response = {};
+			runResponseInterceptorsStack(response, {status: -1}, options);
+			throw new NetworkException(err.message, payload, response);
 		}
 		
 		try{
-			var payload = await response.json();
+			var parsedResponse = await response.json();
 		}catch(err){}
-		let result = runResponseInterceptorsStack(payload, response, options);
-		if(String(response.status).charAt(0) != 2) throw new HttpException( ERROR_MESSAGES.HTTP_ERROR, response.status, payload, payload );
-		
+		let result = runResponseInterceptorsStack(parsedResponse, response, options);
+		if(String(response.status).charAt(0) != 2) throw new HttpException( ERROR_MESSAGES.HTTP_ERROR, response.status, payload, parsedResponse );
+		 
 		return result;
 	}
 	static pushInterceptor(interceptor){
