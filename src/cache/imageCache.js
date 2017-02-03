@@ -70,7 +70,6 @@ async function createCache(url, options){
 
 
 function downloadProgress(options, data){
-	console.log("Download progress", data);
 	var percentage = Math.floor((data.bytesWritten/data.contentLength) * 100);
   	if(options.onProgress) options.onProgress(percentage);
 }
@@ -87,7 +86,7 @@ async function downloadAndWrite(url, destination, options){
 		if(exists) await RNFS.unlink(destination);
 
 		let result = await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: downloadProgress.bind(this, options)}).promise;
-		console.log("Download result", result.statusCode);
+		
 		if(result.statusCode < 200 || result.statusCode > 299) return false;
 		return buildUri(destination);
 
