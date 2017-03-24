@@ -3,12 +3,10 @@ import md5 from 'blueimp-md5';
 import {AsyncStorage} from 'react-native';
 import util from './util';
 
-
 const dir = RNFS.DocumentDirectoryPath;
 
 async function recoverCache(url){
-	const filename = md5(url);
-
+	const filename = buildKeyHash(url);
 	try {
 
 	  var value = await AsyncStorage.getItem('@cache:' + filename);
@@ -49,7 +47,7 @@ function extractExtension(url){
 */
 async function createCache(url, options){
 	const extension = extractExtension(url);
-	const filename = md5(url);
+	const filename = buildKeyHash(url);
 	const timestamp = new Date().getTime();
 	const destination = `${dir}/${filename}.${extension}`;
 	try {
@@ -82,16 +80,19 @@ function downloadProgress(options, data){
 */
 async function downloadAndWrite(url, destination, options){
 	try{
+		
+		url = url.replace(/\ /g,'%20');
+
 		let exists = await RNFS.exists(destination);
 		if(exists) await RNFS.unlink(destination);
-
+		
 		let result = await RNFS.downloadFile({fromUrl: url, toFile: destination, progress: downloadProgress.bind(this, options)}).promise;
 		
 		if(result.statusCode < 200 || result.statusCode > 299) return false;
 		return buildUri(destination);
 
 	}catch(err){
-		console.log("Error downloading file", err);
+		console.log("Error downloading file", url, err);
 		return false;
 	}
 }
@@ -101,6 +102,9 @@ function buildUri(path){
 	return {uri: 'file://' + path};
 }
 
+export function buildKeyHash(url){
+	return md5(url);
+}
 
 export default {
 	recoverCache,
