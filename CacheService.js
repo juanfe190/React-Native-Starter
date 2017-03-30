@@ -1,6 +1,6 @@
 import RNFS from 'react-native-fs';
 import md5 from 'blueimp-md5';
-import imageCache from './src/cache/imageCache';
+import imageCache, {buildKeyHash} from './src/cache/imageCache';
 import requestCache from './src/cache/requestCache';
 import util from './src/cache/util';
 
@@ -15,7 +15,7 @@ class Cache
 	static async image(url, options = {})
 	{
 		let returning = null;
-		const filename = md5(url);
+		const filename = buildKeyHash(url);
 
 		let inCache = await util.checkCache(filename);
 
@@ -42,6 +42,3 @@ class Cache
 		return await requestCache.recoverCache(url, params, options);
 	}
 }
-
-
-
